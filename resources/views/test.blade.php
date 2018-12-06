@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>Filmoteca</title>
+	
 </head>
 <body>
+	<div>
 <table style = "width: 100%">
 	<tr>
 		<th>Titolo</th>
 		<th>Anno</th>
 	</tr>	
-@foreach ($f as $film)
+@foreach ($films as $film)
 <tr>
 <td>			
 {{$film->titolo}}
@@ -20,8 +22,12 @@
 </tr>
 @endforeach	
 
-</table>
 
+</table>
+</div>
+<div style="display: inline-block">
+{{$films->links()}}
+</div>
 
 </table>
 </body>

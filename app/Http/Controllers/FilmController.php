@@ -15,9 +15,9 @@ class FilmController extends Controller
     public function index()
     {
         //
-        $f = Film::orderBy('created_at', 'desc')->take(10)->get();
+        $films = Film::orderBy('created_at', 'desc')->paginate(10);
         // dd($f);
-        return view('test', compact('f'));
+        return view('test', compact('films'));
     }
 
     /**

@@ -1,6 +1,6 @@
 ## Questo sito 
 
-Questo sito è um catalogo di film.
+Questo sito è un catalogo di film.
 
 ## Istruzioni
 
