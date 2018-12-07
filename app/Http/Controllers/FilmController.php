@@ -16,7 +16,7 @@ class FilmController extends Controller
     {
         //
         $films = Film::orderBy('created_at', 'desc')->paginate(10);
-        // dd($f);
+        // dd($films);
         return view('test', compact('films'));
     }
 

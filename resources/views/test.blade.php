@@ -1,34 +1,28 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Filmoteca</title>
-	
+<head>	
+<title>Filmoteca</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+
 </head>
+
 <body>
-	<div>
-<table style = "width: 100%">
-	<tr>
-		<th>Titolo</th>
-		<th>Anno</th>
-	</tr>	
-@foreach ($films as $film)
-<tr>
-<td>			
-{{$film->titolo}}
-</td>			
-<td>			
-{{$film->anno}}
-</td>
-</tr>
+@foreach ($films as $film)			
+<h3>{{$film->titolo}} - {{$film->anno}}
+</h3>
+<h5>
+	{{$film->genere}}  -  {{$film->regista}}
+</h5>
+	<br/>
+	<br/>
 @endforeach	
 
 
 </table>
 </div>
-<div style="display: inline-block">
 {{$films->links()}}
-</div>
 
-</table>
 </body>
 </html>
