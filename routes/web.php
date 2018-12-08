@@ -19,3 +19,4 @@ Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/', 'FilmController@index')->name('home');
+Route::post('/', 'FilmController@show');

@@ -9,6 +9,25 @@
 </head>
 
 <body>
+	<form method = "POST" action = "/">
+
+		{{csrf_field()}}
+<div class="form-group">
+  <label for="genere">Genere:</label>
+  <select class="form-control" id="genere" name="genere">
+    <option>tutti</option>
+    @foreach($generi as $genere)
+		<option>{{$genere->genere}}</option>
+	@endforeach	
+   </select>
+</div>
+
+  <div class = "form-group">
+  <button type="submit" class="btn btn-primary">Filtra</button>
+    </div>
+
+    </form>
+
 @foreach ($films as $film)			
 <h3>{{$film->titolo}} - {{$film->anno}}
 </h3>
