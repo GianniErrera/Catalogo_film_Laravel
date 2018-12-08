@@ -6,10 +6,8 @@ use Illuminate\Http\Request;
 use App\Film;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Redirect;
-use Session;
 
-class FilmController extends Controller
+class GeneriController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,11 +17,15 @@ class FilmController extends Controller
     public function index()
     {
         //
+        $genere = request('genere');
+        if ($genere == 'tutti')  {
+            return redirect('/');
+        }  
+
         $generi = Film::select('genere')->distinct()->get();
-        // dd($generi);
-        $films = Film::orderBy('created_at', 'desc')->paginate(10);
-        // dd($films);
+        $films = DB::table('films')->where('genere', $genere)->paginate(10);  
         return view('test', compact('films', 'generi'));
+
     }
 
     /**
@@ -31,11 +33,11 @@ class FilmController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+        
     public function create()
     {
         //
-
-        return view('inserisci');
     }
 
     /**
@@ -47,15 +49,6 @@ class FilmController extends Controller
     public function store(Request $request)
     {
         //
-        $film = new Film();
-        $film->titolo = request('titolo');
-        $film->anno = request('anno');
-        $film->genere = request('genere');
-        $film->regista = request('regista');
-        $film->save();
-
-        return redirect('/');
-
     }
 
     /**
@@ -67,12 +60,6 @@ class FilmController extends Controller
     public function show($id)
     {
         //
-        // $generi = Film::select('genere')->distinct()->get();
-
-        $film = Film::find($id);
-        // dd($film->titolo);
-        return view('film', compact('film'));
-
     }
 
     /**
@@ -84,9 +71,6 @@ class FilmController extends Controller
     public function edit($id)
     {
         //
-
-        $film = Film::find($id);
-        return view('modifica', compact('film'));
     }
 
     /**
@@ -99,15 +83,6 @@ class FilmController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $film = Film::find($id);
-        $film->titolo = request('titolo');
-        $film->anno = request('anno');
-        $film->genere = request('genere');
-        $film->regista = request('regista');
-        $film->save();
-
-        Session::flash('message', 'Film modificato con successo!');
-            return Redirect::action('FilmController@index');
     }
 
     /**

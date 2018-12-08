@@ -29,7 +29,7 @@
     </form>
 
 @foreach ($films as $film)			
-<h3>{{$film->titolo}} - {{$film->anno}}
+<a href = "/films/{{$film->id}}" ><h3>{{$film->titolo}}</a> - {{$film->anno}}
 </h3>
 <h5>
 	{{$film->genere}}  -  {{$film->regista}}
@@ -39,7 +39,14 @@
 @endforeach	
 
 
+
+
 </table>
+</div>
+<div class = "form-group">
+  <form method = "GET" action = "/films/nuovo" > 
+   @csrf
+    <button type="submit" class="btn btn-primary">Inserisci film</button></form>
 </div>
 {{$films->links()}}
 
