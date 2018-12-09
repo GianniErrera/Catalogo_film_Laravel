@@ -17,7 +17,7 @@
   <select class="form-control" id="genere" name="genere">
     <option>tutti</option>
     @foreach($generi as $genere)
-		<option>{{$genere->genere}}</option>
+		<option>{{$genere}}</option>
 	@endforeach	
    </select>
 </div>

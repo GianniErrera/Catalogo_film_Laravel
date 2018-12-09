@@ -19,8 +19,8 @@ class FilmController extends Controller
     public function index()
     {
         //
-        $generi = Film::select('genere')->distinct()->get();
-        // dd($generi);
+        $generi = Film::select('genere')->distinct()->get()->pluck('genere');
+        
         $films = Film::orderBy('created_at', 'desc')->paginate(10);
         // dd($films);
         return view('test', compact('films', 'generi'));
