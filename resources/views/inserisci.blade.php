@@ -34,7 +34,7 @@
 
   <div class="form-group">
   <label for="genere">Genere</label>
-    <textarea id = "genere" name = "genere" class="custom-select" required></textarea>
+    <textarea id = "genere" name = "genere" class="custom-select" placeholder='Genere'required></textarea>
     
   </div>
 
