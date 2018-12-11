@@ -19,7 +19,7 @@ class FilmController extends Controller
     public function index()
     {
         //
-        $generi = Film::select('genere')->distinct()->get()->pluck('genere');
+        $generi = Film::select('genere')->distinct()->pluck('genere');
         
         $films = Film::orderBy('created_at', 'desc')->paginate(10);
         // dd($films);
@@ -34,8 +34,8 @@ class FilmController extends Controller
     public function create()
     {
         //
-
-        return view('inserisci');
+        $generi = Film::select('genere')->distinct()->get()->pluck('genere');
+        return view('inserisci', compact('generi'));
     }
 
     /**
@@ -47,10 +47,18 @@ class FilmController extends Controller
     public function store(Request $request)
     {
         //
+       
+        // dd(request('genere_nuovo'));
+        request()->validate(['titolo' => 'required|min:3', 'anno' => 'required|integer|between:1896,2018', 'genere' => 'required_without:genere_nuovo', 'genere_nuovo' => 'required_without:genere', 'regista' => 'required']);
         $film = new Film();
         $film->titolo = request('titolo');
-        $film->anno = request('anno');
+        if(request('genere') != null) {            
         $film->genere = request('genere');
+            }
+            else {
+                $film->genere = request('genere_nuovo');
+                }
+        $film->anno = request('anno');
         $film->regista = request('regista');
         $film->save();
 
@@ -86,7 +94,8 @@ class FilmController extends Controller
         //
 
         $film = Film::find($id);
-        return view('modifica', compact('film'));
+        $generi = Film::select('genere')->distinct()->get()->pluck('genere');
+        return view('modifica', compact('film', 'generi'));
     }
 
     /**
@@ -98,11 +107,16 @@ class FilmController extends Controller
      */
     public function update(Request $request, $id)
     {
+         request()->validate(['titolo' => 'required|min:3', 'anno' => 'required|integer|between:1896,2018', 'genere' => 'required_without:genere_nuovo', 'genere_nuovo' => 'required_without:genere', 'regista' => 'required']);
         //
         $film = Film::find($id);
-        $film->titolo = request('titolo');
-        $film->anno = request('anno');
+        if(request('genere') != null) {            
         $film->genere = request('genere');
+            }
+            else {
+                $film->genere = request('genere_nuovo');
+                }
+        $film->anno = request('anno');
         $film->regista = request('regista');
         $film->save();
 

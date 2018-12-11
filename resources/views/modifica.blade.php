@@ -34,9 +34,18 @@
     <textarea id="anno" name = "anno" class = "form-control" placeholder='Anno'>{{$film->anno}}</textarea> 
   </div>
 
-  <div class="form-group">
-  <label for="genere">Genere</label>
-    <textarea id = "genere" name = "genere" class="custom-select" required>{{$film->genere}}</textarea>
+  
+    <label for="genere">Scegli un genere(altrimenti lascia vuoto) :</label>
+    <select class="form-control" id="genere" name="genere">
+      <option></option>
+     
+      @foreach($generi as $genere)
+      <option>{{$genere}}</option>
+    @endforeach 
+     </select>
+  
+  <label for="genere">oppure inserisci un genere nuovo</label>
+    <textarea id = "genere_nuovo" name = "genere_nuovo" class="custom-select" placeholder='Genere'></textarea>
     
   </div>
 
@@ -50,6 +59,16 @@
   <div class = "form-group">
   <button type="submit" class="btn btn-primary">Modifica</button>
     </div>
+
+   @if ($errors->any())
+            <div class="notification is-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+    @endif
 
 </form>
 
