@@ -22,7 +22,7 @@ class GeneriController extends Controller
             return redirect('/');
         }  
 
-        $generi = Film::select('genere')->distinct()->get();
+        $generi = Film::select('genere')->distinct()->get()->pluck('genere');
         $films = DB::table('films')->where('genere', $genere)->paginate(10);  
         return view('test', compact('films', 'generi'));
 
