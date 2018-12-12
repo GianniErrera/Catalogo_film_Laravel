@@ -47,10 +47,11 @@
 
 
   <div class="form-group">
-    <label for="genere">Scegli un genere esistente oppure lascia il campo vuoto:</label>
+    <label for="genere">Scegli un genere esistente oppure scegli nessuna selezione:</label>
     <select class="form-control" id="genere" name="genere">
       
      <option>{{$film->genere}}</option>
+     <option value = "">nessuna selezione</option>
       @foreach($generi as $key => $genere)
       <option value = "{{ $genere }}">{{ $genere }}</option>
     @endforeach 
