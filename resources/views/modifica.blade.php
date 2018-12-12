@@ -34,7 +34,7 @@
     <textarea id="anno" name = "anno" class = "form-control" placeholder='Anno'>{{$film->anno}}</textarea> 
   </div>
 
-  
+  <div class="form-group">
     <label for="genere">Scegli un genere(altrimenti lascia vuoto) :</label>
     <select class="form-control" id="genere" name="genere">
       <option></option>
