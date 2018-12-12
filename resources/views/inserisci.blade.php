@@ -38,9 +38,10 @@
   <div class="form-group">
    
 
-    <label for="genere">Scegli un genere esistente(altrimenti lascia vuoto):</label>
+    <label for="genere">Scegli un genere esistente(altrimenti lascia vuoto o nessuna selezione):</label>
     <select class="form-control" id="genere" name="genere">
-     <option></option>   
+     <option></option> 
+     <option value = "">nessuna selezione</option>  
       @foreach($generi as $genere)
       <option>{{$genere}}</option>
     @endforeach 
