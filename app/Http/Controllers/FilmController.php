@@ -1,14 +1,11 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Film;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Session;
-
 class FilmController extends Controller
 {
     /**
@@ -25,7 +22,6 @@ class FilmController extends Controller
         // dd($films);
         return view('test', compact('films', 'generi'));
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -37,7 +33,6 @@ class FilmController extends Controller
         $generi = Film::select('genere')->distinct()->get()->pluck('genere');
         return view('inserisci', compact('generi'));
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -61,11 +56,8 @@ class FilmController extends Controller
         $film->anno = request('anno');
         $film->regista = request('regista');
         $film->save();
-
         return redirect('/');
-
     }
-
     /**
      * Display the specified resource.
      *
@@ -76,13 +68,10 @@ class FilmController extends Controller
     {
         //
         // $generi = Film::select('genere')->distinct()->get();
-
         $film = Film::find($id);
         // dd($film->titolo);
         return view('film', compact('film'));
-
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -92,12 +81,10 @@ class FilmController extends Controller
     public function edit($id)
     {
         //
-
         $film = Film::find($id);
         $generi = Film::select('genere')->distinct()->get()->pluck('genere');
         return view('modifica', compact('film', 'generi'));
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -119,11 +106,9 @@ class FilmController extends Controller
         $film->anno = request('anno');
         $film->regista = request('regista');
         $film->save();
-
         Session::flash('message', 'Film modificato con successo!');
             return Redirect::action('FilmController@index');
     }
-
     /**
      * Remove the specified resource from storage.
      *

@@ -18,6 +18,13 @@
 Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
+
+
+Route::get('/test', function () {
+	$users = App\User::pluck('name','id')->toArray();
+	dd($users);
+    return view('select2',compact('users'));
+});
 Route::get('/', 'FilmController@index')->name('home');
 Route::post('/', 'GeneriController@index');
 Route::get('/films/nuovo', 'FilmController@create');
