@@ -52,7 +52,7 @@
 
 </table>
 </div>
-<div class = "form-group">
+<div class = "form-group" style = "margin:20px">
   <form method = "GET" action = "/films/nuovo" > 
    @csrf
     <button type="submit" class="btn btn-primary">Inserisci film</button></form>

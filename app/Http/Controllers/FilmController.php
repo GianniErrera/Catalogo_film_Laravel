@@ -149,7 +149,7 @@ class FilmController extends Controller
         $estensione = request('locandina')->getClientOriginalExtension();
         $immagine_filename = $nome_immagine.'_'.time().'.'.$estensione;
         $percorso = request('locandina')->storeAs('public/locandine/'.$id_film, $immagine_filename);
-        $locandina = $film->locandina;
+        $locandina = new Locandina();
         $locandina->film_id = $id_film;
         $locandina->immagine = $immagine_filename;
         $locandina->descrizione = ('locandina_'.request('titolo'));
