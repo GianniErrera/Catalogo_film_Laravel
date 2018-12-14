@@ -21,7 +21,7 @@
 <div class = "container" style = "margin:15px">
 
 <br/>
-    <form method = "POST" action = "/films/modifica/{{$film->id}}">
+    <form method = "POST" action = "/films/modifica/{{$film->id}}" enctype = "multipart/form-data">
 
   @method('PATCH')
   {{csrf_field()}}
@@ -42,7 +42,9 @@
 
   <div class="form-group">
     <label for="anno">Anno</label><br/>
-    <textarea id="anno" name = "anno" class = "form-control" placeholder='Anno'>{{$film->anno}}</textarea> 
+    <textarea id="anno" name = "anno" class = "form-control" placeholder='Anno'>
+      {{$film->anno}}
+      </textarea> 
   </div>
 
 
@@ -66,6 +68,15 @@
    <div class="form-group">
     <label for="regista">Regista</label><br/>
     <textarea id="regista" name = "regista" class = "form-control" placeholder='Regista' required>{{$film->regista}}</textarea> 
+  </div>
+
+  <div class="form-group">
+    <label for="immagine">Immagine locandina - facoltativo</label><br/>
+    <input type = "file" id="locandina" name = "locandina" class = "form-control">
+    @if ($film->locandina)      
+      {{$film->locandina->immagine}}
+    @endif
+  </textarea> 
   </div>
 
 

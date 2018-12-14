@@ -2,7 +2,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Film;
-use Illuminate\Support\Facades\Input;
+use App\locandina;      
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Session;
@@ -42,8 +42,11 @@ class FilmController extends Controller
     public function store(Request $request)
     {
         //
-       
-        // dd(request('genere_nuovo'));
+        
+
+
+       // dd(request()->getSize());
+
         request()->validate(['titolo' => 'required|min:3', 'anno' => 'required|integer|between:1896,2018', 'genere' => 'required_without:genere_nuovo', 'genere_nuovo' => 'required_without:genere', 'regista' => 'required']);
         $film = new Film();
         $film->titolo = request('titolo');
@@ -56,6 +59,22 @@ class FilmController extends Controller
         $film->anno = request('anno');
         $film->regista = request('regista');
         $film->save();
+        
+
+        if ($request->has('locandina')) { 
+        $id_film = $film->id;
+        $nome_immagine = basename(request('locandina')->getClientOriginalName(), ".".request('locandina')->getClientOriginalExtension());
+        $estensione = request('locandina')->getClientOriginalExtension();
+        $immagine_filename = $nome_immagine.'_'.time().'.'.$estensione;
+        $percorso = request('locandina')->storeAs('public/locandine/'.$id_film, $immagine_filename);
+        $locandina = new locandina();
+        $locandina->film_id = $id_film;
+        $locandina->immagine = $immagine_filename;
+        $locandina->descrizione = ('locandina_'.request('titolo'));
+        $locandina->peso = request('locandina')->getSize();
+        $locandina->save();
+        }
+
         return redirect('/');
     }
     /**
@@ -106,6 +125,20 @@ class FilmController extends Controller
         $film->anno = request('anno');
         $film->regista = request('regista');
         $film->save();
+
+        if ($request->has('locandina')) { 
+        $id_film = $film->id;
+        $nome_immagine = basename(request('locandina')->getClientOriginalName(), ".".request('locandina')->getClientOriginalExtension());
+        $estensione = request('locandina')->getClientOriginalExtension();
+        $immagine_filename = $nome_immagine.'_'.time().'.'.$estensione;
+        $percorso = request('locandina')->storeAs('public/locandine/'.$id_film, $immagine_filename);
+        $locandina = new locandina();
+        $locandina->film_id = $id_film;
+        $locandina->immagine = $immagine_filename;
+        $locandina->descrizione = ('locandina_'.request('titolo'));
+        $locandina->peso = request('locandina')->getSize();
+        $locandina->save();
+        }
         Session::flash('message', 'Film modificato con successo!');
             return Redirect::action('FilmController@index');
     }

@@ -9,6 +9,7 @@
 </head>
 
 <body>
+  <div style = "margin:20px">
 	<form method = "POST" action = "/">
 
 		{{csrf_field()}}
@@ -27,8 +28,14 @@
     </div>
 
     </form>
-
-@foreach ($films as $film)			
+<table>
+@foreach ($films as $film)
+<tr>
+  
+@if ($film->locandina) <td style = "margin:5px" width="10%"><img src = "/storage/locandine/{{$film->id}}/{{$film->locandina->immagine}}/" width = "80%"></td>
+@else <td></td>
+@endif	
+<td>
 <a href = "/films/{{$film->id}}" ><h3>{{$film->titolo}}</a> - {{$film->anno}}
 </h3>
 <h5>
@@ -36,8 +43,10 @@
 </h5>
 	<br/>
 	<br/>
+</td>
+</tr>
 @endforeach	
-
+</table>
 
 
 
@@ -50,5 +59,6 @@
 </div>
 {{$films->links()}}
 
+</div>
 </body>
 </html>

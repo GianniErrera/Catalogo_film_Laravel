@@ -7,10 +7,16 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 </head>
 <body>
+	
+	
 <div class = "row">
 	<div class = "col-sm-4" style = "margin:20px">
-
+		
+	@if ($film->locandina) <img src = "/storage/locandine/{{$film->id}}/{{$film->locandina->immagine}}/">
+	@else
 		<img src = "https://via.placeholder.com/360x480.png">
+	@endif	
+		
 	</div>
 	<div class = "col-sm-6" style = "margin:20px">
 	<h1>{{$film->titolo}}</h1>

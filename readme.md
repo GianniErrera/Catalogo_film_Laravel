@@ -12,7 +12,8 @@ $ composer install or $ php composer.phar install
 $ php artisan key:generate
 $ php artisan migrate (more about migration)
 $ php artisan db:seed to run seeders, if any. (more about seed)
-php artisan db:seed --class=FilmSeeder
+$ php artisan db:seed --class=FilmSeeder
+$ php artisan storage:link
 $ php artisan serve
 You can now access your project at http://localhost:8000
 

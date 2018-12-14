@@ -12,7 +12,7 @@
 <div class = "container" style = "margin:15px">
 
 <br/>
-    <form method = "POST" action = "/films/nuovo">
+    <form method = "POST" action = "/films/nuovo" enctype = "multipart/form-data">
 
   {{csrf_field()}}
 
@@ -56,6 +56,11 @@
    <div class="form-group">
     <label for="regista">Regista</label><br/>
     <textarea id="regista" name = "regista" class = "form-control" placeholder='Regista' required></textarea> 
+  </div>
+
+  <div class="form-group">
+    <label for="immagine">Immagine locandina - facoltativo</label><br/>
+    <input type = "file" id="locandina" name = "locandina" class = "form-control"></textarea> 
   </div>
 
 
