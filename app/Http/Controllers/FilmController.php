@@ -47,7 +47,7 @@ class FilmController extends Controller
 
        // dd(request()->getSize());
 
-        request()->validate(['titolo' => 'required|min:3', 'anno' => 'required|integer|between:1896,2018', 'genere' => 'required_without:genere_nuovo', 'genere_nuovo' => 'required_without:genere', 'regista' => 'required']);
+        request()->validate(['locandina'=> 'dimensions:min_width=100,min_height=200|mimes:jpeg,jpg,png|min:400|max:1024', 'titolo' => 'required|min:3', 'anno' => 'required|integer|between:1896,2018', 'genere' => 'required_without:genere_nuovo', 'genere_nuovo' => 'required_without:genere', 'regista' => 'required']);
         $film = new Film();
         $film->titolo = request('titolo');
         if(request('genere') != null) {            
@@ -113,7 +113,7 @@ class FilmController extends Controller
      */
     public function update(Request $request, $id)
     {
-         request()->validate(['titolo' => 'required|min:3', 'anno' => 'required|integer|between:1896,2018', 'genere' => 'required_without:genere_nuovo', 'genere_nuovo' => 'required_without:genere', 'regista' => 'required']);
+         request()->validate(['locandina'=> 'dimensions:min_width=100,min_height=200|mimes:jpeg,jpg,png|min:40|max:1024','titolo' => 'required|min:3', 'anno' => 'required|integer|between:1896,2018', 'genere' => 'required_without:genere_nuovo', 'genere_nuovo' => 'required_without:genere', 'regista' => 'required']);
         //
         $film = Film::find($id);
         if(request('genere') != null) {            
@@ -127,17 +127,37 @@ class FilmController extends Controller
         $film->save();
 
         if ($request->has('locandina')) { 
+        if ($film->locandina)
+        {    
+
         $id_film = $film->id;
         $nome_immagine = basename(request('locandina')->getClientOriginalName(), ".".request('locandina')->getClientOriginalExtension());
         $estensione = request('locandina')->getClientOriginalExtension();
         $immagine_filename = $nome_immagine.'_'.time().'.'.$estensione;
         $percorso = request('locandina')->storeAs('public/locandine/'.$id_film, $immagine_filename);
-        $locandina = new locandina();
+        $locandina =  $film->locandina;
         $locandina->film_id = $id_film;
         $locandina->immagine = $immagine_filename;
         $locandina->descrizione = ('locandina_'.request('titolo'));
         $locandina->peso = request('locandina')->getSize();
         $locandina->save();
+            }
+
+        else {
+        $id_film = $film->id;
+        $nome_immagine = basename(request('locandina')->getClientOriginalName(), ".".request('locandina')->getClientOriginalExtension());
+        $estensione = request('locandina')->getClientOriginalExtension();
+        $immagine_filename = $nome_immagine.'_'.time().'.'.$estensione;
+        $percorso = request('locandina')->storeAs('public/locandine/'.$id_film, $immagine_filename);
+        $locandina = $film->locandina;
+        $locandina->film_id = $id_film;
+        $locandina->immagine = $immagine_filename;
+        $locandina->descrizione = ('locandina_'.request('titolo'));
+        $locandina->peso = request('locandina')->getSize();
+        $locandina->save();
+
+        }
+
         }
         Session::flash('message', 'Film modificato con successo!');
             return Redirect::action('FilmController@index');
