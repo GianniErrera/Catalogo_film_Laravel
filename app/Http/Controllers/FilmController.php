@@ -3,8 +3,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Film;
 use App\locandina;      
+use Image;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\File;
+use Storage;
 use Session;
 class FilmController extends Controller
 {
@@ -42,12 +45,9 @@ class FilmController extends Controller
     public function store(Request $request)
     {
         //
-        
+              
 
-
-       // dd(request()->getSize());
-
-        request()->validate(['locandina'=> 'dimensions:min_width=100,min_height=200|mimes:jpeg,jpg,png|min:400|max:1024', 'titolo' => 'required|min:3', 'anno' => 'required|integer|between:1896,2018', 'genere' => 'required_without:genere_nuovo', 'genere_nuovo' => 'required_without:genere', 'regista' => 'required']);
+       request()->validate(['locandina'=> 'dimensions:min_width=100,min_height=200|mimes:jpeg,jpg,png|min:40|max:1024', 'titolo' => 'required|min:3', 'anno' => 'required|integer|between:1896,2018', 'genere' => 'required_without:genere_nuovo', 'genere_nuovo' => 'required_without:genere', 'regista' => 'required']);
         $film = new Film();
         $film->titolo = request('titolo');
         if(request('genere') != null) {            
@@ -60,13 +60,29 @@ class FilmController extends Controller
         $film->regista = request('regista');
         $film->save();
         
+        if ($request->has('locandina')) {
+        
 
-        if ($request->has('locandina')) { 
+        
         $id_film = $film->id;
+
         $nome_immagine = basename(request('locandina')->getClientOriginalName(), ".".request('locandina')->getClientOriginalExtension());
         $estensione = request('locandina')->getClientOriginalExtension();
         $immagine_filename = $nome_immagine.'_'.time().'.'.$estensione;
-        $percorso = request('locandina')->storeAs('public/locandine/'.$id_film, $immagine_filename);
+        $path = public_path("/locandine/thumbnails/". $id_film . "/" . $immagine_filename); 
+        
+        
+        request('locandina')->storeAs('/public/locandine/'. $id_film, $immagine_filename);
+
+        $img = request('locandina');
+        $thumb = Image::make($img)->resize(300, null, function($constraint)
+        {
+            $constraint->aspectRatio();
+        }))->encode('jpg');
+        
+        Storage::put('/public/locandine/thumbnails/'. $id_film . "/" . $immagine_filename, $thumb->__toString());
+        
+       
         $locandina = new locandina();
         $locandina->film_id = $id_film;
         $locandina->immagine = $immagine_filename;
@@ -74,9 +90,11 @@ class FilmController extends Controller
         $locandina->peso = request('locandina')->getSize();
         $locandina->save();
         }
-
         return redirect('/');
     }
+
+    
+    
     /**
      * Display the specified resource.
      *
@@ -135,6 +153,18 @@ class FilmController extends Controller
         $estensione = request('locandina')->getClientOriginalExtension();
         $immagine_filename = $nome_immagine.'_'.time().'.'.$estensione;
         $percorso = request('locandina')->storeAs('public/locandine/'.$id_film, $immagine_filename);
+
+
+        $img = request('locandina');
+        $thumb = Image::make($img)->resize(300, null, function($constraint)
+        {
+            $constraint->aspectRatio();
+        })->encode('jpg');
+        
+        
+        Storage::put('/public/locandine/thumbnails/'. $id_film . "/" . $immagine_filename, $thumb->__toString());
+
+
         $locandina =  $film->locandina;
         $locandina->film_id = $id_film;
         $locandina->immagine = $immagine_filename;
@@ -149,6 +179,16 @@ class FilmController extends Controller
         $estensione = request('locandina')->getClientOriginalExtension();
         $immagine_filename = $nome_immagine.'_'.time().'.'.$estensione;
         $percorso = request('locandina')->storeAs('public/locandine/'.$id_film, $immagine_filename);
+
+        $img = request('locandina');        
+        $thumb = Image::make($img)->resize(300, null, function($constraint)
+        {
+            $constraint->aspectRatio();
+        })->encode('jpg');
+        
+        
+        Storage::put('/public/locandine/thumbnails/'. $id_film . "/" . $immagine_filename, $thumb->__toString());
+
         $locandina = new Locandina();
         $locandina->film_id = $id_film;
         $locandina->immagine = $immagine_filename;
