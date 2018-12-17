@@ -12,7 +12,8 @@
 <div class = "row">
 	<div class = "col-sm-4" style = "margin:20px">
 		
-	@if ($film->locandina) <img src = "/storage/locandine/thumbnails/{{$film->id}}/{{$film->locandina->immagine}}/" width="360">
+	@if ($film->locandina) <img src = "/storage/locandine/{{$film->id}}/{{$film->locandina->immagine}}" style = 'max-width:100%;
+max-height:100%;'>
 	@else
 		<img src = "https://via.placeholder.com/360x480.png">
 	@endif	
