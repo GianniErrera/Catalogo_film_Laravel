@@ -78,8 +78,7 @@ class FilmController extends Controller
         $thumb = Image::make($img)->resize(300, null, function($constraint)
         {
             $constraint->aspectRatio();
-        })->encode('jpg');
-        
+        })->encode('jpg');        
         Storage::put('/public/locandine/thumbnails/'. $id_film . "/" . $immagine_filename, $thumb->__toString());
         
        
@@ -159,9 +158,7 @@ class FilmController extends Controller
         $thumb = Image::make($img)->resize(300, null, function($constraint)
         {
             $constraint->aspectRatio();
-        })->encode('jpg');
-        
-        
+        })->encode('jpg');        
         Storage::put('/public/locandine/thumbnails/'. $id_film . "/" . $immagine_filename, $thumb->__toString());
 
 
