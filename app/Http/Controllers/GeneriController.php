@@ -25,7 +25,7 @@ class GeneriController extends Controller
         }  
 
         $generi = Film::select('genere')->distinct()->get()->pluck('genere');
-        $films = Film::where('genere', $genere)->paginate(10);
+        $films = Film::where('genere', $genere)->orderBy('created_at', 'desc')->paginate(10);
         // dd($films);
         return view('test', compact('films', 'generi'));
 
