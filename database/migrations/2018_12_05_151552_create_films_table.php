@@ -19,6 +19,7 @@ class CreateFilmsTable extends Migration
             $table->string('regista');
             $table->string('genere');
             $table->integer('anno');
+            $table->boolean('validato')->default(false);
             $table->timestamps();
         });
     }

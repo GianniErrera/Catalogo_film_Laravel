@@ -30,9 +30,11 @@
     </form>
 <table>
 @foreach ($films as $film)
+
+
 <tr>
 
- @if (isset($film->locandina))  
+ @if ($film->locandina)  
 
     @if (file_exists("storage/locandine/thumbnails/" . $film->id . "/" . $film->locandina->immagine))  
 
@@ -51,6 +53,7 @@
 
 
 
+
 {{--  @if ($film->locandina) <td style = "margin:5px" width="10%"><img src = "/storage/locandine/{{$film->id}}/{{$film->locandina->immagine}}/" width = "80%"></td> --}}
 {{-- @else <td></td>
 @endif  --}}  
@@ -65,6 +68,7 @@
 	<br/>
 </td>
 </tr>
+
 @endforeach	
 </table>
 

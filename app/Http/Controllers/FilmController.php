@@ -21,7 +21,7 @@ class FilmController extends Controller
         //
         $generi = Film::select('genere')->distinct()->pluck('genere');
         
-        $films = Film::orderBy('created_at', 'desc')->paginate(10);
+        $films = Film::where('validato', 1)->orderBy('created_at', 'desc')->paginate(10);
         // dd($films);
         return view('test', compact('films', 'generi'));
     }
