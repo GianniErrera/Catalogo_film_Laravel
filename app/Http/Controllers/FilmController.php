@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use App\Film;
 use App\locandina;      
 use Image;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\File;
@@ -20,8 +21,11 @@ class FilmController extends Controller
     {
         //
         $generi = Film::select('genere')->distinct()->pluck('genere');
+        $scadenza_quarantena = Carbon::now()->subDays(6);
+
+ 
         
-        $films = Film::where('validato', 1)->orderBy('created_at', 'desc')->paginate(10);
+        $films = Film::where('validato', 1)->orWhere ('created_at', '<', $scadenza_quarantena)->orderBy('created_at', 'desc')->paginate(10);
         // dd($films);
         return view('test', compact('films', 'generi'));
     }

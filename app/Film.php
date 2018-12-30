@@ -11,4 +11,15 @@ class Film extends Model
     	return $this->hasOne(Locandina::class);
 
     }
+
+
+   
+
+
+    public function hasnotLocandina() {
+    	
+    	
+    	
+    }
+
 }

@@ -69,6 +69,7 @@
 </td>
 </tr>
 
+
 @endforeach	
 </table>
 

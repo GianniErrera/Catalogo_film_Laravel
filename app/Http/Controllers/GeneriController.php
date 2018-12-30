@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Film;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
 
@@ -25,7 +26,9 @@ class GeneriController extends Controller
         }  
 
         $generi = Film::select('genere')->distinct()->get()->pluck('genere');
-        $films = Film::where('validato', 1)->where('genere', $genere)->orderBy('created_at', 'desc')->paginate(10);
+        $scadenza_quarantena = Carbon::now()->subDays(6);
+        
+        $films = Film::where('genere', $genere)->where('validato', 1)->orWhere('created_at', '<', $scadenza_quarantena)->orderBy('created_at', 'desc')->paginate(10);
         // dd($films);
         return view('test', compact('films', 'generi'));
 
