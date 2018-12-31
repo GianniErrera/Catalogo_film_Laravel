@@ -33,3 +33,7 @@ Route::get('/films/{id}', 'FilmController@show');
 
 Route::get('/films/modifica/{id}', 'FilmController@edit');
 Route::patch('/films/modifica/{id}', 'FilmController@update');
+
+Route::get('/segreto/admin', 'AdminController@index');
+Route::post('/segreto/admin', 'AdminController@generi');
+Route::get('/segreto/admin/films/{id}', 'AdminController@show');
