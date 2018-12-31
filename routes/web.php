@@ -36,4 +36,5 @@ Route::patch('/films/modifica/{id}', 'FilmController@update');
 
 Route::get('/segreto/admin', 'AdminController@index');
 Route::post('/segreto/admin', 'AdminController@generi');
+Route::patch('/segreto/admin/films/valida/{id}', 'ValidaFilm@update');
 Route::get('/segreto/admin/films/{id}', 'AdminController@show');

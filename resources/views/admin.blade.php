@@ -66,7 +66,7 @@ $giorni_da_inserimento = floor(($now - $data_inserimento) / (3600 * 24));
 {{-- @else <td></td>
 @endif  --}}  
 
-<td>
+<td style = "margin:auto" "display:block">
 <a href = "/segreto/admin/films/{{$film->id}}" ><h3>{{$film->titolo}}</a> - {{$film->anno}}
 </h3>
 <h5>
@@ -74,9 +74,19 @@ $giorni_da_inserimento = floor(($now - $data_inserimento) / (3600 * 24));
 </h5>
 	<br/>
 	<br/>
+  @if ($film->validato == "0" && $giorni_da_inserimento < 7)
+<div class = "form-group" style = "margin:auto">
+  <form method = "POST" action = "/segreto/admin/films/valida/{{$film->id}}" > 
+   @csrf
+   @method('PATCH')
+    <button type="submit" class="button is-link">Valida film</button></form>
+</div>
 </td>
 </tr>
 
+
+
+@endif
 
 @endforeach	
 </table>

@@ -5,7 +5,6 @@ use App\Film;
 use App\locandina;      
 use Image;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\File;
 use Storage;
