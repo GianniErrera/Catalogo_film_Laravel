@@ -210,6 +210,7 @@ class FilmController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Film::find($id)->delete();
+        return back();
     }
 }
