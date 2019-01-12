@@ -2,7 +2,7 @@
 <html>
 <head>	
 <title>Filmoteca</title>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 
@@ -11,6 +11,7 @@
 
 <body>
   <div style = "margin:20px">
+    
 	<form method = "POST" action = "/segreto/admin">
 
 		{{csrf_field()}}
@@ -58,14 +59,13 @@ curl_close($curl);
 
 $response = json_decode($response, true); //because of true, it's in an array
 
-if ($response['Response'] != "False") $ricerca = "prova";
+if ($response['Response'] != "False"){
+$ricerca = "Titolo: " . $response['Title'] . "\nAnno: " . $response['Year'];
 
-
-else $ricerca = "Titolo non trovato";
-
-  
-
-
+}
+else
+{$ricerca = "Titolo non trovato";
+}
 
 $now = time();
 $data_inserimento = strtotime($film->created_at);
@@ -103,21 +103,14 @@ $giorni_da_inserimento = floor(($now - $data_inserimento) / (3600 * 24));
 @endif  --}}  
 
 <td style = "margin:auto" "display:block">
-<a href = "/segreto/admin/films/{{$film->id}}" ><h3>{{$film->titolo}}</a> - <font color = "red">@if ($response['Response'] != "False") {{$response['Title']}}
-
-
-@else{{"Titolo non trovato"}}
-
-  
-  @endif
-</font>
-  {{$film->anno}}  @if ($response['Response'] != "False") - <font color = "red">{{$response['Year']}} @endif</font>
+<a href = "/segreto/admin/films/{{$film->id}}" ><h3>{{$film->titolo}}</a> - {{$film->anno}}
 </h3>
 <h5>
-	<a href = "#" data-toggle="popover" title="Prova di popover" data-content="<?php echo $ricerca; ?>">{{$film->genere}}</a>  -  {{$film->regista}} @if ($response['Response'] != "False") <font color = "red">{{$response['Director']}} @endif</font>
+	<a href = "#" class = "api">{{$film->genere}}</a>  -  {{$film->regista}}
 </h5>
 	<br/>
 	<br/>
+  <a href="#" data-toggle="popover"  id = {{$film->titolo}} title="Prova di popover" data-content="<?php echo $ricerca; ?>">Toggle popover</a>
   @if ($film->validato == "0" && $giorni_da_inserimento < 7)
 <div class = "form-group" style = "display:inline; margin:auto;">
   <form method = "POST" action = "/segreto/admin/films/valida/{{$film->id}}" > 
@@ -129,21 +122,33 @@ $giorni_da_inserimento = floor(($now - $data_inserimento) / (3600 * 24));
    @csrf
    @method('DELETE')
     <button type="submit" class="button is-link">Elimina film</button></form>
+
+
+  
+  
+
+
+</div>
+@endif
+
 </div>
 </td>
 </tr>
 
 
 
-@endif
+
 
 @endforeach	
 </table>
 
 
+<button id = "bottone">Ricerca film Paddington nel database omdbapi</button>
 
-</table>
 </div>
+<div class = "container" style="border: 1px solid black;" id = "contenitore"></div>
+
+
 <div class = "form-group" style = "margin:20px">
   <form method = "GET" action = "/films/nuovo" > 
    @csrf
@@ -152,22 +157,34 @@ $giorni_da_inserimento = floor(($now - $data_inserimento) / (3600 * 24));
 {{$films->links()}}
 
 </div>
-<!-- <script>
-  $('.api').popover({
-    html: true,
-    trigger: 'manual',
-    content: $ricerca
-  }).click(function(e) {
-    $(this).popover('toggle');
-  });
-
-
-</script> -->
 
 <script>
-$(document).ready(function(){
-  $('[data-toggle="popover"]').popover();   
-});
+document.getElementById('bottone').addEventListener('click', API);
+function API () {
+  var richiesta = new XMLHttpRequest();
+  richiesta.open('GET', 'http://www.omdbapi.com/?t=Paddington&apikey=1543505e');
+
+  richiesta.onload = function () {
+if (richiesta.status == 200) {
+
+  console.log('evvai', richiesta);
+  var ricerca = JSON.parse(richiesta.responseText);
+  var output = "";
+  output += '<b>Titolo film: </b>' + ricerca.Title + "<br><b>Anno: </b>" + ricerca.Year + "<br><b>Regista: </b>" + ricerca.Director;
+
+  document.getElementById('contenitore').innerHTML = output;
+}
+
+console.log('vabenelostesso');
+  }
+
+richiesta.send();
+}
+
+
+
+
+
 </script>
 
 </body>

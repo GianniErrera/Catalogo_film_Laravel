@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Response;
 use App\Film;
 
-class AdminController extends Controller
+class provaAjax extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,35 +15,8 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $generi = Film::select('genere')->distinct()->pluck('genere');
-        $films = Film::orderBy('created_at', 'desc')->paginate(10);
-        // dd($films);
-        return view('admin', compact('films', 'generi'));
-    }
-
-    public function test()
-    {
-        $generi = Film::select('genere')->distinct()->pluck('genere');
-        $films = Film::orderBy('created_at', 'desc')->paginate(10);
-        // dd($films);
-        return view('admin_test', compact('films', 'generi'));
-        // return view('test');
-    }
-
-
-    public function generi()
-    {
-
-    	$genere = request('genere');
-
-        if ($genere == 'tutti')  {
-            return redirect('/segreto/admin');
-        }  
-        $generi = Film::select('genere')->distinct()->pluck('genere');
-    
-        $films = Film::where('genere', $genere)->orderBy('created_at', 'desc')->paginate(10);
-        // dd($films);
-        return view('admin', compact('films', 'generi'));
+        //
+        return view('prova_random_number');
     }
 
     /**
@@ -53,6 +27,10 @@ class AdminController extends Controller
     public function create()
     {
         //
+
+        $numero = rand(1, 100);
+        
+        return '<h1>' . $numero . '</h1>' ;
     }
 
     /**
@@ -66,16 +44,60 @@ class AdminController extends Controller
         //
     }
 
+    public function home()
+    {
+
+
+        return "stringa";
+
+    }
     /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-       $film = Film::find($id);        
-        return view('admin_film', compact('film'));
+        //
+        // $titolo = Film::find($id)->titolo;
+        $id = request('id');
+        $titolo = urlencode(Film::find($id)->titolo);
+        
+
+        $apikey = "1543505e";
+
+
+    $curl = curl_init();
+
+    curl_setopt_array($curl, array(
+      CURLOPT_URL => "http://www.omdbapi.com/?t=$titolo&apikey=$apikey",
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_TIMEOUT => 30,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => "GET",
+      CURLOPT_HTTPHEADER => array(
+        "cache-control: no-cache"
+      ),
+    ));
+
+    $response = curl_exec($curl);
+    $err = curl_error($curl);
+
+    curl_close($curl);
+
+    $response = json_decode($response, true); //because of true, it's in an array
+
+    if ($response['Response'] != "False"){
+    $ricerca = "<b>Titolo: </b>" . $response['Title'] . "<br><b>Anno: </b>" . $response['Year'] . '<br><b>Regista: </b>' . $response['Director'];
+
+    }
+    else
+    {$ricerca = "<b>Titolo non trovato</b>";
+    }
+
+    return $ricerca;
+
     }
 
     /**
