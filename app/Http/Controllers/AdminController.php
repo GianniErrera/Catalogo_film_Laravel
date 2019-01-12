@@ -17,7 +17,7 @@ class AdminController extends Controller
         $generi = Film::select('genere')->distinct()->pluck('genere');
         $films = Film::orderBy('created_at', 'desc')->paginate(10);
         // dd($films);
-        return view('admin', compact('films', 'generi'));
+        return view('admin_test', compact('films', 'generi'));
     }
 
     public function test()
