@@ -90,7 +90,13 @@ class provaAjax extends Controller
     $response = json_decode($response, true); //because of true, it's in an array
 
     if ($response['Response'] != "False"){
-    $ricerca = "<b>Titolo: </b>" . $response['Title'] . "<br><b>Anno: </b>" . $response['Year'] . '<br><b>Regista: </b>' . $response['Director'];
+
+    $bottone_per_aggiornare_info = ""; 
+        $film = Film::find($id);
+    if ($film->titolo != $response['Title'] ||  $film->anno !=$response['Year']  ||  $film->regista !=$response['Director'])  {
+        $bottone_per_aggiornare_info = '<button class = "update" id = ' . $id . ">Clicca qui per aggiornare info</button>";
+    } 
+    $ricerca = "<b>Titolo: </b>" . $response['Title'] . "<br><b>Anno: </b>" . $response['Year'] . '<br><b>Regista: </b>' . $response['Director'] . "<br>" . $bottone_per_aggiornare_info;
 
     }
     else
