@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>	
+<head>  
 <title>Filmoteca</title>
 <meta name = "csrf-token" content = "{{csrf_token()}}" >
 
@@ -18,16 +18,16 @@
 <body>
   <div style = "margin:20px">
     
-	<form method = "POST" action = "/segreto/admin">
+  <form method = "POST" action = "/segreto/admin">
 
-		{{csrf_field()}}
+    {{csrf_field()}}
 <div class="form-group">
   <label for="genere">Genere:</label>
   <select class="form-control" id="genere" name="genere">
     <option>tutti</option>
     @foreach($generi as $genere)
-		<option>{{$genere}}</option>
-	@endforeach	
+    <option>{{$genere}}</option>
+  @endforeach 
    </select>
 </div>
 
@@ -40,8 +40,6 @@
 @foreach ($films as $film)
 
 <?php
-
-
 $now = time();
 $data_inserimento = strtotime($film->created_at);
 $giorni_da_inserimento = floor(($now - $data_inserimento) / (3600 * 24));
@@ -64,7 +62,7 @@ $giorni_da_inserimento = floor(($now - $data_inserimento) / (3600 * 24));
 {{--     <td>"/storage/locandine/thumbnails/{{$film->id}}/{{$film->locandina->immagine}}"</td> --}}
    <td style = "margin:5px"; width="10%"><img src = "https://via.placeholder.com/300x480.png/" width = "80%"; vertical-align: top; ></td>
 {{--     <td style = "margin:5px"; width="10%"><img src = "https://via.placeholder.com/300x480.png/" width = "80%"; vertical-align: top; ></td> --}}
-     @endif	
+     @endif 
 
 @else 
 <td style = "margin:5px"; width="10%"><img src = "https://via.placeholder.com/300x480.png/" width = "80%"; vertical-align: top; ></td>
@@ -81,10 +79,10 @@ $giorni_da_inserimento = floor(($now - $data_inserimento) / (3600 * 24));
 <a href = "/segreto/admin/films/{{$film->id}}" ><h3>{{$film->titolo}}</a> - {{$film->anno}}
 </h3>
 <h5>
-	{{$film->genere}}  -  {{$film->regista}}
+  {{$film->genere}}  -  {{$film->regista}}
 </h5>
-	<br/>
-	<br/><button class = "bottoni" id = {{$film->id}}  >Ricerca nel database OMDBApi</button>
+  <br/>
+  <br/><button class = "bottoni" id = {{$film->id}} style="margin:15px" >Ricerca nel database OMDBApi</button>
   
   @if ($film->validato == "0" && $giorni_da_inserimento < 7)
 <div class = "form-group" style = "display:inline; margin:auto;">
@@ -113,11 +111,11 @@ $giorni_da_inserimento = floor(($now - $data_inserimento) / (3600 * 24));
 
 
 
-@endforeach	
+@endforeach 
 </table>
 
 
-<button id = "bottone">Ricerca film Paddington nel database omdbapi</button>
+
 
 </div>
 <div class = "container" style="border: 1px solid black;" id = "contenitore"></div>
@@ -150,7 +148,6 @@ $(document).ready(function() {
     }
     function ricerca() {
       
-
       var element = $(this);
       var id = element.attr('id');
       console.log(id);
@@ -160,50 +157,21 @@ $(document).ready(function() {
         data: {_token: '{{csrf_token()}}',
         id: id},
         dataType: 'text'
-
       })
         .done(function() {
           document.getElementById('div-'+id).innerHTML = response.responseText;
           console.log("Se gira questo stiamo messi benone", response.responseText);
-
-
         })
-
       
-
   }
 })
   
-
 </script>
 
 
 
 
-<script>
-document.getElementById('bottone').addEventListener('click', API);
-function API () {
 
-  var richiesta = new XMLHttpRequest();
-  richiesta.open('GET', 'http://www.omdbapi.com/?t=Paddington&apikey=1543505e');
-  richiesta.onload = function () {
-if (richiesta.status == 200) {
-
-  console.log('evvai', richiesta);
-  var ricerca = JSON.parse(richiesta.responseText);
-  var output = "";
-  output += '<b>Titolo film: </b>' + ricerca.Title + "<br><b>Anno: </b>" + ricerca.Year + "<br><b>Regista: </b>" + ricerca.Director;
-
-  document.getElementById('contenitore').innerHTML = output;
-}
-
-console.log('vabenelostesso');
-  }
-
-richiesta.send();
-}
-
-</script>
 
 </body>
 </html>
