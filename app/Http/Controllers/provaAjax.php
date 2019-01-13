@@ -57,11 +57,12 @@ class provaAjax extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show($id)
     {
         //
         // $titolo = Film::find($id)->titolo;
-        $id = request('id');
+
+        
         $titolo = urlencode(Film::find($id)->titolo);
         
 

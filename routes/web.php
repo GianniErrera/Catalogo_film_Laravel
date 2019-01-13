@@ -25,7 +25,7 @@ Route::get('/tester', function () {
 	dd($users);
     return view('select2',compact('users'));
 });
-Route::post('/scarica_info_da_API', 'provaAjax@show');
+Route::post('/scarica_info_da_API/{id}', 'provaAjax@show');
 Route::get('/random_generator', 'provaAjax@index');
 Route::get('/genera_numero', 'provaAjax@create');
 Route::get('/', 'FilmController@index')->name('home');

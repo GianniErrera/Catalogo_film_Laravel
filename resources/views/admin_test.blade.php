@@ -155,7 +155,7 @@ $(document).ready(function() {
       var id = element.attr('id');
       console.log(id);
       var response = $.ajax({
-        url: '/scarica_info_da_API',
+        url: '/scarica_info_da_API/' + id,
         method: 'POST',
         data: {_token: '{{csrf_token()}}',
         id: id},
