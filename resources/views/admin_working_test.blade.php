@@ -172,7 +172,7 @@ if (richiesta.status == 200) {
   var output = "";
   output += '<b>Titolo film: </b>' + ricerca.Title + "<br><b>Anno: </b>" + ricerca.Year + "<br><b>Regista: </b>" + ricerca.Director;
 
-  document.getElementById('contenitore').innerHTML = output;
+  document.getElementById('contenitore').innerHTML = output . '{{Film::all()}}';
 }
 
 console.log('vabenelostesso');

@@ -96,7 +96,7 @@ class provaAjax extends Controller
     if ($film->titolo != $response['Title'] ||  $film->anno !=$response['Year']  ||  $film->regista !=$response['Director'])  {
         $bottone_per_aggiornare_info = '<button class = "update" id = ' . $id . " style = 'margin-top: 10px' >Clicca qui per aggiornare info</button>";
     } 
-    $ricerca = "<b>Titolo: </b>" . $response['Title'] . "<br><b>Anno: </b>" . $response['Year'] . '<br><b>Regista: </b>' . $response['Director'] . "<br>" . $bottone_per_aggiornare_info;
+    $ricerca = "<b>Titolo: </b>" . $response['Title'] . "<br><b>Anno: </b>" . $response['Year'] . '<br><b>Regista: </b>' . $response['Director'] . "<br>" . $bottone_per_aggiornare_info .  "{{ Film::find(24)->anno}}";
 
     }
     else

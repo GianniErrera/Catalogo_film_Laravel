@@ -159,7 +159,7 @@ $(document).ready(function() {
         dataType: 'text'
       })
         .done(function() {
-          document.getElementById('div-'+id).innerHTML = response.responseText;
+          document.getElementById('div-'+ id).innerHTML = response.responseText;
           console.log("Se gira questo stiamo messi benone", response.responseText);
         })
       
@@ -167,6 +167,8 @@ $(document).ready(function() {
 })
   
 </script>
+
+
 
 
 
