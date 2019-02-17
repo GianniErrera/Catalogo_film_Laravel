@@ -13,9 +13,9 @@
 	<div class = "col-sm-4" style = "margin:20px">
 		
 	@if ($film->locandina) <img src = "/storage/locandine/{{$film->id}}/{{$film->locandina->immagine}}" style = 'max-width:100%;
-max-height:100%;'>
+max-height:100%; img-rounded '>
 	@else
-		<img src = "https://via.placeholder.com/360x480.png">
+		<img src = "https://via.placeholder.com/360x480.png" class="img-rounded">
 	@endif	
 		
 	</div>
