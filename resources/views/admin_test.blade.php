@@ -36,7 +36,7 @@
     </div>
 
     </form>
-<table>
+<table class="table">
 @foreach ($films as $film)
 
 <?php
@@ -44,11 +44,11 @@ $now = time();
 $data_inserimento = strtotime($film->created_at);
 $giorni_da_inserimento = floor(($now - $data_inserimento) / (3600 * 24));
 ?>
-
+<div class="container" style = "margin:2px">
 @if ($film->validato == "0" && $giorni_da_inserimento < 7) {{-- se film non è validato ed è stato inserito da meno di 7 giorni visualizza riga con colore giallo per evidenziare graficamente film non validato --}}
-<tr class = "bg-warning">
+<tr class = "bg-warning" style = "margin: 2px">
   @else
-<tr>
+<tr style = "margin: 2px">
   @endif
 
  @if ($film->locandina)  
@@ -56,16 +56,16 @@ $giorni_da_inserimento = floor(($now - $data_inserimento) / (3600 * 24));
     @if (file_exists("storage/locandine/thumbnails/" . $film->id . "/" . $film->locandina->immagine))  
 
 
-    <td style = "margin:5px"; width="10%"><img src = "/storage/locandine/thumbnails/{{$film->id}}/{{$film->locandina->immagine}}" width = "80%"; vertical-align: top; ></td>
+    <td style = "margin:5px"; width="10%"><img style = "img-thumbnail" src = "/storage/locandine/thumbnails/{{$film->id}}/{{$film->locandina->immagine}}" width = "80%"; vertical-align: top; ></td>
     
     @else 
 {{--     <td>"/storage/locandine/thumbnails/{{$film->id}}/{{$film->locandina->immagine}}"</td> --}}
-   <td style = "margin:5px"; width="10%"><img src = "https://via.placeholder.com/300x480.png/" width = "80%"; vertical-align: top; ></td>
+   <td style = "margin:5px"; width="10%"><img style="img-thumbnail" src = "https://via.placeholder.com/300x480.png/" width = "80%"; vertical-align: top; ></td>
 {{--     <td style = "margin:5px"; width="10%"><img src = "https://via.placeholder.com/300x480.png/" width = "80%"; vertical-align: top; ></td> --}}
      @endif 
 
 @else 
-<td style = "margin:5px"; width="10%"><img src = "https://via.placeholder.com/300x480.png/" width = "80%"; vertical-align: top; ></td>
+<td style = "margin:5px"; width="10%"><img style="img-thumbnail" src = "https://via.placeholder.com/300x480.png/" width = "80%"; vertical-align: top; ></td>
 @endif
 
 
@@ -82,7 +82,7 @@ $giorni_da_inserimento = floor(($now - $data_inserimento) / (3600 * 24));
   {{$film->genere}}  -  {{$film->regista}}
 </h5>
   <br/>
-  <br/><button class = "bottoni" id = {{$film->id}} style="margin:15px" >Ricerca nel database OMDBApi</button>
+  <br/><button class = "bottoni btn btn-primary" id = {{$film->id}} style="margin:15px" >Ricerca nel database OMDBApi</button>
   
   @if ($film->validato == "0" && $giorni_da_inserimento < 7)
 <div class = "form-group" style = "display:inline; margin:auto;">
@@ -106,7 +106,7 @@ $giorni_da_inserimento = floor(($now - $data_inserimento) / (3600 * 24));
     <div id = div-{{$film->id}}></div>
   </td>
 </tr>
-
+</div>
 
 
 

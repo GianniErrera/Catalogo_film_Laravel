@@ -6,7 +6,9 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 
-
+<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
@@ -29,22 +31,22 @@
     </div>
 
     </form>
-<table>
+<table class = "table">
 @foreach ($films as $film)
 
-
-<tr>
+<div class="container" style="margin: 2px">
+<tr style="margin: 2px">
 
  @if ($film->locandina)  
 
     @if (file_exists("storage/locandine/thumbnails/" . $film->id . "/" . $film->locandina->immagine))  
 
 
-    <td style = "margin:5px"; width="10%"><img src = "/storage/locandine/thumbnails/{{$film->id}}/{{$film->locandina->immagine}}" width = "80%"; vertical-align: top; ></td>
+    <td style = "margin:5px"; width="10%"><img class="img-thumbnail" src = "/storage/locandine/thumbnails/{{$film->id}}/{{$film->locandina->immagine}}" width = "80%"; vertical-align: top; ></td>
     
     @else 
 {{--     <td>"/storage/locandine/thumbnails/{{$film->id}}/{{$film->locandina->immagine}}"</td> --}}
-   <td style = "margin:5px"; width="10%"><img src = "https://via.placeholder.com/300x480.png/" width = "80%"; vertical-align: top; ></td>
+   <td style = "margin:5px"; width="10%"><img class="img-thumbnail" src = "https://via.placeholder.com/300x480.png/" width = "80%"; vertical-align: top; ></td>
 {{--     <td style = "margin:5px"; width="10%"><img src = "https://via.placeholder.com/300x480.png/" width = "80%"; vertical-align: top; ></td> --}}
      @endif	
 
@@ -69,6 +71,7 @@
 	<br/>
 </td>
 </tr>
+</div>
 
 
 @endforeach	

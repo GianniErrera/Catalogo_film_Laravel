@@ -139,10 +139,9 @@ $giorni_da_inserimento = floor(($now - $data_inserimento) / (3600 * 24));
 
 @endforeach	
 </table>
-
-
-
 </table>
+
+
 </div>
 <div class = "form-group" style = "margin:20px">
   <form method = "GET" action = "/films/nuovo" > 
