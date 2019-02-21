@@ -2,16 +2,18 @@
 <html>
 <head>	
 <title>Filmoteca</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 
-<meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+
 </head>
 
-<body>
+<body style="background-color: #ededed">
+
   <div style = "margin:20px">
 	<form method = "POST" action = "/">
 
@@ -26,11 +28,12 @@
    </select>
 </div>
 
-  <div class = "form-group">
-  <button type="submit" class="btn btn-primary">Filtra</button>
+    <div class = "form-group">
+    <button type="submit" class="btn btn-primary">Filtra</button>
     </div>
+  </form>
+  </div>
 
-    </form>
 <table class = "table">
 @foreach ($films as $film)
 
@@ -51,7 +54,7 @@
      @endif	
 
 @else 
-<td style = "margin:5px"; width="10%"><img src = "https://via.placeholder.com/300x480.png/" width = "80%"; vertical-align: top; ></td>
+<td style = "margin:5px"; width="10%"><img class="img-thumbnail" src = "https://via.placeholder.com/300x480.png/" width = "80%"; vertical-align: top; ></td>
 @endif
 
 

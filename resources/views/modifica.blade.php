@@ -16,11 +16,11 @@
         <link rel="stylesheet" href="/css/app.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css">
 </head>
-<body>
+<body style="background-color: #ededed">
 
 <div class = "container" style = "margin:15px">
 
-<br/>
+
     <form method = "POST" action = "/films/modifica/{{$film->id}}" enctype = "multipart/form-data">
 
   @method('PATCH')
@@ -42,13 +42,12 @@
 
   <div class="form-group">
     <label for="anno">Anno</label><br/>
-    <textarea id="anno" name = "anno" class = "form-control" placeholder='Anno'>
-      {{$film->anno}}
-      </textarea> 
+    <textarea id="anno" name = "anno" class = "form-control" placeholder='Anno'>{{$film->anno}}
+    </textarea> 
   </div>
 
-
-  <div class="form-group">
+<br>
+  <div class="form-group" style="border: 2px solid #dddddd">
     <label for="genere">Scegli un genere esistente oppure scegli nessuna selezione:</label>
     <select class="form-control" id="genere" name="genere">
       
@@ -58,10 +57,13 @@
       <option value = "{{ $genere }}">{{ $genere }}</option>
     @endforeach 
      </select>
-  
+
+  <br>
+  <br>
   <label for="genere">oppure inserisci un genere nuovo</label>
     <textarea id = "genere_nuovo" name = "genere_nuovo" class="custom-select" placeholder='Genere'></textarea>
-    
+    <br>
+    <br>
     
   </div>
 
@@ -73,8 +75,9 @@
   <div class="form-group">
     <label for="immagine">Immagine locandina - facoltativo</label><br/>
     <input type = "file" id="locandina" name = "locandina" class = "form-control">
-    @if ($film->locandina)      
-      {{$film->locandina->immagine}}
+    @if ($film->locandina)
+    <br>     
+    &nbsp;&nbsp;&nbsp;&nbsp;{{$film->locandina->immagine}}
     @endif
   </textarea> 
   </div>

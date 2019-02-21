@@ -101,7 +101,7 @@ class provaAjax extends Controller
     $ricerca = "<b>Titolo: </b>" . $response['Title'] . "<br><b>Anno: </b>" . $response['Year'] . '<br><b>Regista: </b>' . $response['Director'] . "<br>" . $bottone_per_aggiornare_info ;
 
     } else {
-        $ricerca = "<h5><b>Titolo non trovato</b></h5>";
+        $ricerca = "<h4><b>Titolo non trovato</b></h4>";
     }
 
     return $ricerca;

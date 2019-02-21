@@ -8,10 +8,10 @@
         <link rel="stylesheet" href="/css/app.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css">
 </head>
-<body>
+<body style="background-color: #ededed">
 <div class = "container" style = "margin:15px">
 
-<br/>
+
     <form method = "POST" action = "/films/nuovo" enctype = "multipart/form-data">
 
   {{csrf_field()}}
@@ -35,7 +35,7 @@
     <textarea id="anno" name = "anno" class = "form-control" placeholder='Anno'></textarea> 
   </div>
 
-  <div class="form-group">
+  <div class="form-group" style="border: 2px solid #dddddd">
    
 
     <label for="genere">Scegli un genere esistente(altrimenti lascia vuoto o nessuna selezione):</label>
@@ -46,9 +46,11 @@
       <option>{{$genere}}</option>
     @endforeach 
      </select>
+     <br>
   <label for="genere">oppure inserisci un genere nuovo</label>
     <textarea id = "genere_nuovo" name = "genere_nuovo" class="custom-select" placeholder='Genere'></textarea>
-    
+    <br>
+    <br>
  
     
   </div>
