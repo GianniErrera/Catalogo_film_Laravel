@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html>
-<head>  
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <title>Filmoteca</title>
 <meta name = "csrf-token" content = "{{csrf_token()}}" >
 
@@ -15,19 +19,20 @@
 
 </head>
 
-<body>
+<body style="background-color: #ededed">
   <div style = "margin:20px">
     
   <form method = "POST" action = "/segreto/admin">
 
     {{csrf_field()}}
+
 <div class="form-group">
   <label for="genere">Genere:</label>
   <select class="form-control" id="genere" name="genere">
     <option>tutti</option>
     @foreach($generi as $genere)
     <option>{{$genere}}</option>
-  @endforeach 
+    @endforeach 
    </select>
 </div>
 
@@ -36,6 +41,8 @@
     </div>
 
     </form>
+
+
 <table class="table">
 @foreach ($films as $film)
 
@@ -56,16 +63,16 @@ $giorni_da_inserimento = floor(($now - $data_inserimento) / (3600 * 24));
     @if (file_exists("storage/locandine/thumbnails/" . $film->id . "/" . $film->locandina->immagine))  
 
 
-    <td style = "margin:5px"; width="10%"><img style = "img-thumbnail" src = "/storage/locandine/thumbnails/{{$film->id}}/{{$film->locandina->immagine}}" width = "80%"; vertical-align: top; ></td>
+    <td style = "margin:5px"; width="10%"><img class = "img-thumbnail" src = "/storage/locandine/thumbnails/{{$film->id}}/{{$film->locandina->immagine}}" width = "80%"; vertical-align: top; ></td>
     
     @else 
 {{--     <td>"/storage/locandine/thumbnails/{{$film->id}}/{{$film->locandina->immagine}}"</td> --}}
-   <td style = "margin:5px"; width="10%"><img style="img-thumbnail" src = "https://via.placeholder.com/300x480.png/" width = "80%"; vertical-align: top; ></td>
+   <td style = "margin:5px"; width="10%"><img class="img-thumbnail" src = "https://via.placeholder.com/300x480.png/" width = "80%"; vertical-align: top; ></td>
 {{--     <td style = "margin:5px"; width="10%"><img src = "https://via.placeholder.com/300x480.png/" width = "80%"; vertical-align: top; ></td> --}}
      @endif 
 
 @else 
-<td style = "margin:5px"; width="10%"><img style="img-thumbnail" src = "https://via.placeholder.com/300x480.png/" width = "80%"; vertical-align: top; ></td>
+<td style = "margin:5px"; width="10%"><img class="img-thumbnail" src = "https://via.placeholder.com/300x480.png/" width = "80%"; vertical-align: top; ></td>
 @endif
 
 
@@ -82,19 +89,25 @@ $giorni_da_inserimento = floor(($now - $data_inserimento) / (3600 * 24));
   {{$film->genere}}  -  {{$film->regista}}
 </h5>
   <br/>
-  <br/><button class = "bottoni btn btn-primary" id = {{$film->id}} style="margin:15px" >Ricerca nel database OMDBApi</button>
+  <br/>
+  <button class = "bottoni btn btn-primary" id = {{$film->id}} style="margin:15px" >
+    Ricerca nel database OMDBApi
+  </button>
   
   @if ($film->validato == "0" && $giorni_da_inserimento < 7)
 <div class = "form-group" style = "display:inline; margin:auto;">
   <form method = "POST" action = "/segreto/admin/films/valida/{{$film->id}}" > 
    @csrf
    @method('PATCH')
-    <button type="submit" class="button is-link">Valida film</button></form>
+    <button type="submit" class="button is-link">Valida film
+    </button>
+  </form>
 
   <form method = "POST" action = "/segreto/admin/films/elimina/{{$film->id}}" > 
    @csrf
    @method('DELETE')
-    <button type="submit" class="button is-link">Elimina film</button></form>
+    <button type="submit" class="button is-link">Elimina film</button>
+  </form>
 </div>
 
 @endif
