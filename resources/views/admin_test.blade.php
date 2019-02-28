@@ -90,27 +90,40 @@ $giorni_da_inserimento = floor(($now - $data_inserimento) / (3600 * 24));
 </h5>
   <br/>
   <br/>
-  <button class = "bottoni btn btn-primary" id = {{$film->id}} style="margin:15px" >
-    Ricerca nel database OMDBApi
-  </button>
+
+  <div class="row">
+      <div class = "form-group">
+      <button class = "bottoni btn btn-primary" id = {{$film->id}} style="margin-left:15px" >
+        Ricerca nel database OMDBApi
+      </button>
+      </div>
   
-  @if ($film->validato == "0" && $giorni_da_inserimento < 7)
-<div class = "form-group" style = "display:inline; margin:auto;">
-  <form method = "POST" action = "/segreto/admin/films/valida/{{$film->id}}" > 
-   @csrf
-   @method('PATCH')
-    <button type="submit" class="button is-link">Valida film
-    </button>
-  </form>
+      @if ($film->validato == "0" && $giorni_da_inserimento < 7)
+      
+      <div class = "form-group">
+      
+      <form method = "POST" action = "/segreto/admin/films/valida/{{$film->id}}" > 
+      @csrf
+      @method('PATCH')
+        <button type="submit" class="btn btn-primary" style="margin-left:5px">Valida film
+        </button>
+      </div>
 
-  <form method = "POST" action = "/segreto/admin/films/elimina/{{$film->id}}" > 
-   @csrf
-   @method('DELETE')
-    <button type="submit" class="button is-link">Elimina film</button>
-  </form>
-</div>
+      </form>
 
-@endif
+      <br>
+
+      <div class = "form-group">
+      <form method = "POST" action = "/segreto/admin/films/elimina/{{$film->id}}" > 
+      @csrf
+      @method('DELETE')
+        <button type="submit" class="btn btn-primary" style="margin-left:5px">Elimina film</button>
+      </form>
+      </div>
+      @endif
+  </div>
+
+
 
 </div>
 </td>
