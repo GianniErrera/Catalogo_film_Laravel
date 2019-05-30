@@ -18,7 +18,7 @@
 </head>
 <body style="background-color: #ededed">
 
-<div class = "container" style = "margin:15px">
+<div class = "container mx-auto" style = "margin:15px">
 
 
     <form method = "POST" action = "/films/modifica/{{$film->id}}" enctype = "multipart/form-data">
@@ -35,21 +35,21 @@
 <h3><a href="/categoria/nuova">oppure crea una nuova categoria</a></h3>
 
 </div> --}} -->
-<div class="form-group">
+<div class="mb-4">
     <label for="titolo">Titolo</label><br/>
-    <textarea id="titolo" name = "titolo" class = "form-control" placeholder='Titolo' required>{{$film->titolo}}</textarea>
+    <textarea id="titolo" name = "titolo" class = "block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-grey-darker border border-grey rounded" placeholder='Titolo' required>{{$film->titolo}}</textarea>
   </div>
 
-  <div class="form-group">
+  <div class="mb-4">
     <label for="anno">Anno</label><br/>
-    <textarea id="anno" name = "anno" class = "form-control" placeholder='Anno'>{{$film->anno}}
+    <textarea id="anno" name = "anno" class = "block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-grey-darker border border-grey rounded" placeholder='Anno'>{{$film->anno}}
     </textarea>
   </div>
 
-  <br>
-  <div class="form-group" style="border: 2px solid #dddddd">
+<br>
+  <div class="mb-4" style="border: 2px solid #dddddd">
     <label for="genere">Scegli un genere esistente oppure scegli nessuna selezione:</label>
-    <select class="form-control" id="genere" name="genere">
+    <select class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-grey-darker border border-grey rounded" id="genere" name="genere">
 
      <option>{{$film->genere}}</option>
      <option value = "">nessuna selezione</option>
@@ -67,14 +67,14 @@
 
   </div>
 
-   <div class="form-group">
+   <div class="mb-4">
     <label for="regista">Regista</label><br/>
-    <textarea id="regista" name = "regista" class = "form-control" placeholder='Regista' required>{{$film->regista}}</textarea>
+    <textarea id="regista" name = "regista" class = "block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-grey-darker border border-grey rounded" placeholder='Regista' required>{{$film->regista}}</textarea>
   </div>
 
-  <div class="form-group">
+  <div class="mb-4">
     <label for="immagine">Immagine locandina - facoltativo</label><br/>
-    <input type = "file" id="locandina" name = "locandina" class = "form-control">
+    <input type = "file" id="locandina" name = "locandina" class = "block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-grey-darker border border-grey rounded">
     @if ($film->locandina)
     <br>
     &nbsp;&nbsp;&nbsp;&nbsp;{{$film->locandina->immagine}}
@@ -84,8 +84,8 @@
 
 
   <hr>
-  <div class = "form-group">
-  <button type="submit" class="btn btn-primary">Modifica</button>
+  <div class = "mb-4">
+  <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap py-2 px-4 rounded text-base leading-normal no-underline text-blue-lightest bg-blue hover:bg-blue-light">Modifica</button>
     </div>
 
    @if ($errors->any())

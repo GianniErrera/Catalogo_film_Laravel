@@ -18,9 +18,9 @@
 	<form method = "POST" action = "/">
 
 		{{csrf_field()}}
-<div class="form-group">
+<div class="mb-4">
   <label for="genere">Genere:</label>
-  <select class="form-control" id="genere" name="genere">
+  <select class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-grey-darker border border-grey rounded" id="genere" name="genere">
     <option>tutti</option>
     @foreach($generi as $genere)
 		<option>{{$genere}}</option>
@@ -28,14 +28,13 @@
    </select>
 </div>
 
-    <div class = "form-group">
-    <button type="submit" class="btn btn-primary">Filtra</button>
+    <div class = "mb-4">
+    <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap py-2 px-4 rounded text-base leading-normal no-underline text-blue-lightest bg-blue hover:bg-blue-light">Filtra</button>
     </div>
   </form>
   </div>
-
-<div class = 'table-responsive' >
-<table class = "table" style = 'table-layout:auto'>
+<div class = 'block w-full overflow-auto scrolling-touch'>
+<table class = "w-full max-w-full mb-4 bg-transparent">
 @foreach ($films as $film)
 
 
@@ -46,16 +45,16 @@
     @if (file_exists("storage/locandine/thumbnails/" . $film->id . "/" . $film->locandina->immagine))
 
 
-    <td style = "margin:5px; width:20%"><img class="img-thumbnail" src = "/storage/locandine/thumbnails/{{$film->id}}/{{$film->locandina->immagine}}" style = "vertical-align:top;" ></td>
+    <td style = "margin:5px; width:20%"><img class="max-w-full h-auto border-1 border-grey rounded p-1" src = "/storage/locandine/thumbnails/{{$film->id}}/{{$film->locandina->immagine}}" style = "vertical-align:top;" ></td>
 
     @else
 {{--     <td>"/storage/locandine/thumbnails/{{$film->id}}/{{$film->locandina->immagine}}"</td> --}}
-   <td style = "margin:5px; width:20%"><img class="img-thumbnail" src = "https://via.placeholder.com/300x480.png/" style = "vertical-align: top;" ></td>
+   <td style = "margin:5px; width:20%"><img class="max-w-full h-auto border-1 border-grey rounded p-1" src = "https://via.placeholder.com/300x480.png/" style = "vertical-align: top;" ></td>
 {{--     <td style = "margin:5px; width:20%"><img src = "https://via.placeholder.com/300x480.png/" style = "width = 80%; vertical-align: top;" ></td> --}}
      @endif
 
 @else
-<td style = "margin:5px; width:20%"><img class="img-thumbnail" src = "https://via.placeholder.com/300x480.png/"; style = "vertical-align: top;" ></td>
+<td style = "margin:5px; width:20%"><img class="max-w-full h-auto border-1 border-grey rounded p-1" src = "https://via.placeholder.com/300x480.png/"; style = "vertical-align: top;" ></td>
 @endif
 
 
@@ -85,10 +84,10 @@
 
 </table>
 </div>
-<div class = "form-group" style = "margin:20px">
+<div class = "mb-4" style = "margin:20px">
   <form method = "GET" action = "/films/nuovo" >
    @csrf
-    <button type="submit" class="btn btn-primary">Inserisci film</button></form>
+    <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap py-2 px-4 rounded text-base leading-normal no-underline text-blue-lightest bg-blue hover:bg-blue-light">Inserisci film</button></form>
 </div>
 {{$films->links()}}
 

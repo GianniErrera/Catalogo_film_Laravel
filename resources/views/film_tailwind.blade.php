@@ -11,24 +11,19 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 </head>
 <body style="background-color: #ededed">
-
-    @php
-    session_start();
-    $_SESSION ['mod'] = 'Tailwind';
-    @endphp
-
-
-<div class = "row">
-	<div class = "col-sm-4" style = "margin:20px;">
-
+	
+	
+<div class = "flex flex-wrap">
+	<div class = "sm:w-1/3 pr-4 pl-4" style = "margin:20px;">
+		
 	@if ($film->locandina) <img src = "/storage/locandine/{{$film->id}}/{{$film->locandina->immagine}}" style = 'max-width:100%;
 max-height:100%' class="img-rounded" >
 	@else
 		<img src = "https://via.placeholder.com/360x480.png" class="img-rounded">
-	@endif
-
+	@endif	
+		
 	</div>
-	<div class = "col-sm-6" style = "margin:20px; padding:30px">
+	<div class = "sm:w-1/2 pr-4 pl-4" style = "margin:20px">
 	<h1>{{$film->titolo}}</h1>
 	<br/>
 	<h1>{{$film->anno}}</h1>
@@ -38,14 +33,12 @@ max-height:100%' class="img-rounded" >
 	<h2>{{$film->regista}}</h2>
 	<br/>
 	<br/>
-		<div class = "form-group">
-  			<form method = "GET" action = "/films/modifica/{{$film->id}}" >
+		<div class = "mb-4">
+  			<form method = "GET" action = "/films/modifica/{{$film->id}}" > 
      		{{csrf_field()}}
-    		<button type="submit" class="btn btn-primary">Modifica</button></form>
+    		<button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap py-2 px-4 rounded text-base leading-normal no-underline text-blue-lightest bg-blue hover:bg-blue-light">Modifica</button></form>
 		</div>
 	</div>
 </div>
-
-@include('footer')
 </body>
 </html>

@@ -26,9 +26,9 @@
 
     {{csrf_field()}}
 
-<div class="form-group">
+<div class="mb-4">
   <label for="genere">Genere:</label>
-  <select class="form-control" id="genere" name="genere">
+  <select class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-grey-darker border border-grey rounded" id="genere" name="genere">
     <option>tutti</option>
     @foreach($generi as $genere)
     <option>{{$genere}}</option>
@@ -36,14 +36,14 @@
    </select>
 </div>
 
-  <div class = "form-group">
-  <button type="submit" class="btn btn-primary">Filtra</button>
+  <div class = "mb-4">
+  <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap py-2 px-4 rounded text-base leading-normal no-underline text-blue-lightest bg-blue hover:bg-blue-light">Filtra</button>
     </div>
 
     </form>
 
-<div class = 'table-responsive'>
-<table class="table" style = 'table-layout:auto'>
+<div class = 'block w-full overflow-auto scrolling-touch'>
+<table class="w-full max-w-full mb-4 bg-transparent" style = 'table-layout:auto'>
 @foreach ($films as $film)
 
 <?php
@@ -51,9 +51,9 @@ $now = time();
 $data_inserimento = strtotime($film->created_at);
 $giorni_da_inserimento = floor(($now - $data_inserimento) / (3600 * 24));
 ?>
-<div class="container" style = "margin:2px">
+<div class="container mx-auto" style = "margin:2px">
 @if ($film->validato == "0" && $giorni_da_inserimento < 7) {{-- se film non è validato ed è stato inserito da meno di 7 giorni visualizza riga con colore giallo per evidenziare graficamente film non validato --}}
-<tr class = "bg-warning" style = "margin: 2px">
+<tr class = "bg-yellow" style = "margin: 2px">
   @else
 <tr style = "margin: 2px">
   @endif
@@ -63,16 +63,16 @@ $giorni_da_inserimento = floor(($now - $data_inserimento) / (3600 * 24));
     @if (file_exists("storage/locandine/thumbnails/" . $film->id . "/" . $film->locandina->immagine))
 
 
-    <td style = "margin:5px"; width="20%"><img class = "img-thumbnail" src = "/storage/locandine/thumbnails/{{$film->id}}/{{$film->locandina->immagine}}" ; vertical-align: top; ></td>
+    <td style = "margin:5px"; width="20%"><img class = "max-w-full h-auto border-1 border-grey rounded p-1" src = "/storage/locandine/thumbnails/{{$film->id}}/{{$film->locandina->immagine}}" ; vertical-align: top; ></td>
 
     @else
 {{--     <td>"/storage/locandine/thumbnails/{{$film->id}}/{{$film->locandina->immagine}}"</td> --}}
-   <td style = "margin:5px"; width="20%"><img class="img-thumbnail" src = "https://via.placeholder.com/300x480.png/"  vertical-align: top; ></td>
+   <td style = "margin:5px"; width="20%"><img class="max-w-full h-auto border-1 border-grey rounded p-1" src = "https://via.placeholder.com/300x480.png/"  vertical-align: top; ></td>
 {{--     <td style = "margin:5px"; width="10%"><img src = "https://via.placeholder.com/300x480.png/" width = "80%"; vertical-align: top; ></td> --}}
      @endif
 
 @else
-<td style = "margin:5px"; width="20%"><img class="img-thumbnail" src = "https://via.placeholder.com/300x480.png/" vertical-align: top; ></td>
+<td style = "margin:5px"; width="20%"><img class="max-w-full h-auto border-1 border-grey rounded p-1" src = "https://via.placeholder.com/300x480.png/" vertical-align: top; ></td>
 @endif
 
 
@@ -91,21 +91,21 @@ $giorni_da_inserimento = floor(($now - $data_inserimento) / (3600 * 24));
   <br/>
   <br/>
 
-  <div class="row">
-      <div class = "form-group">
-      <button class = "bottoni btn btn-primary" id = {{$film->id}} style="margin-left:15px" >
+  <div class="flex flex-wrap">
+      <div class = "mb-4">
+      <button class = "bottoni inline-block align-middle text-center select-none border font-normal whitespace-no-wrap py-2 px-4 rounded text-base leading-normal no-underline text-blue-lightest bg-blue hover:bg-blue-light" id = {{$film->id}} style="margin-left:15px" >
         Ricerca nel database OMDBApi
       </button>
       </div>
 
       @if ($film->validato == "0" && $giorni_da_inserimento < 7)
 
-      <div class = "form-group">
+      <div class = "mb-4">
 
       <form method = "POST" action = "/segreto/admin/films/valida/{{$film->id}}" >
       @csrf
       @method('PATCH')
-        <button type="submit" class="btn btn-primary" style="margin-left:5px">Valida film
+        <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap py-2 px-4 rounded text-base leading-normal no-underline text-blue-lightest bg-blue hover:bg-blue-light" style="margin-left:5px">Valida film
         </button>
       </div>
 
@@ -113,11 +113,11 @@ $giorni_da_inserimento = floor(($now - $data_inserimento) / (3600 * 24));
 
       <br>
 
-      <div class = "form-group">
+      <div class = "mb-4">
       <form method = "POST" action = "/segreto/admin/films/elimina/{{$film->id}}" >
       @csrf
       @method('DELETE')
-        <button type="submit" class="btn btn-primary" style="margin-left:5px">Elimina film</button>
+        <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap py-2 px-4 rounded text-base leading-normal no-underline text-blue-lightest bg-blue hover:bg-blue-light" style="margin-left:5px">Elimina film</button>
       </form>
       </div>
       @endif
@@ -145,13 +145,13 @@ $giorni_da_inserimento = floor(($now - $data_inserimento) / (3600 * 24));
 
 
 </div>
-<div class = "container" style="border: 1px solid black;" id = "contenitore"></div>
+<div class = "container mx-auto" style="border: 1px solid black;" id = "contenitore"></div>
 
 
-<div class = "form-group" style = "margin:20px">
+<div class = "mb-4" style = "margin:20px">
   <form method = "GET" action = "/films/nuovo" >
    @csrf
-    <button type="submit" class="btn btn-primary">Inserisci film</button></form>
+    <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap py-2 px-4 rounded text-base leading-normal no-underline text-blue-lightest bg-blue hover:bg-blue-light">Inserisci film</button></form>
 </div>
 {{$films->links()}}
 

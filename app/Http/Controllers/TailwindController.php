@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Film;
 
-class AdminController extends Controller
+class TailwindController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,35 +14,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $generi = Film::select('genere')->distinct()->pluck('genere');
-        $films = Film::orderBy('created_at', 'desc')->paginate(10);
-        // dd($films);
-        return view('admin_test', compact('films', 'generi'));
-    }
-
-    public function test()
-    {
-        $generi = Film::select('genere')->distinct()->pluck('genere');
-        $films = Film::orderBy('created_at', 'desc')->paginate(10);
-        // dd($films);
-        return view('admin_nuova_home', compact('films', 'generi'));
-        // return view('test');
-    }
-
-
-    public function generi()
-    {
-
-    	$genere = request('genere');
-
-        if ($genere == 'tutti')  {
-            return redirect('/segreto/admin');
-        }
-        $generi = Film::select('genere')->distinct()->pluck('genere');
-
-        $films = Film::where('genere', $genere)->orderBy('created_at', 'desc')->paginate(10);
-        // dd($films);
-        return view('admin', compact('films', 'generi'));
+        //
     }
 
     /**
@@ -52,7 +24,8 @@ class AdminController extends Controller
      */
     public function create()
     {
-        //
+        $generi = Film::select('genere')->distinct()->get()->pluck('genere');
+        return view('inserisci_tailwind', compact('generi'));
     }
 
     /**
@@ -74,8 +47,7 @@ class AdminController extends Controller
      */
     public function show($id)
     {
-       $film = Film::find($id);
-        return view('admin_film', compact('film'));
+        //
     }
 
     /**

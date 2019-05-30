@@ -25,6 +25,7 @@ Route::get('/tester', function () {
 	dd($users);
     return view('select2',compact('users'));
 });
+Route::get('/prova_tailwind', 'TailwindController@create');
 Route::post('/scarica_info_da_API/{id}', 'provaAjax@show');
 Route::get('/random_generator', 'provaAjax@index');
 Route::get('/genera_numero', 'provaAjax@create');
